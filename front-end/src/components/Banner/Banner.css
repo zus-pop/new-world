@@ -1,0 +1,16 @@
+.banner-container {
+    background-image: url('/src/assets/banner-homescreen.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    top: -89px;
+    height: var(--height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-content {
+    font-size: 3em;
+}

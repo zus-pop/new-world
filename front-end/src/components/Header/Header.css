@@ -1,0 +1,101 @@
+.header-container {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 10px;
+    z-index: 1;
+}
+
+.header-content {
+    display: flex;
+    background-color: #110B22;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 15px 10px;
+    border-radius: 30px;
+    width: 70%;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar > input {
+    width: 25em;
+    background-color: #DED2FF;
+    color: #110B22;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 15px;
+}
+
+.search-icon {
+    color: #110B22;
+    position: relative;
+    right: 25px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.home-icon {
+    color: white;
+    font-size: 28px;
+}
+
+.nav-bar {
+    display: flex;
+    gap: 20px;
+    
+    > a {
+        font-size: 1.2em;
+        text-decoration: none;
+        font-weight: 600;
+        color: white;
+        transition: all 0.2s;
+    }
+
+    > a.active {
+        color: #b89efe;
+    }
+}
+
+.guest {
+    display: flex;
+    gap: 10px;
+}
+
+.guest-btn {
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sign-in-btn {
+    background-color: #E5DCFF;
+    color: #110B22;
+    border: .38px solid #110B22;
+}
+
+.sign-in-btn:hover {
+    background-color: #110B22;
+    color: #E5DCFF;
+    border: .38px solid #E5DCFF;
+}
+
+.sign-up-btn {
+    background-color: #140B2D;
+    color: #E5DCFF;
+    border: .38px solid #E5DCFF;
+}
+
+.sign-up-btn:hover {
+    background-color: #E5DCFF;
+    color: #140B2D;
+    border: .38px solid #140B2D;
+}

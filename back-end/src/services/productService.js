@@ -1,4 +1,5 @@
-import { connection } from '../database/product.js';
+import { connection } from '../database/database.js';
+import categoryService from '../services/categoryService.js';
 
 const conn = await connection.getConnection();
 
@@ -30,12 +31,23 @@ const getProductCountByCategoryId = async (category_id) => {
     }
 };
 
+const mapProduct = async row => {
+    return {
+        product_id: row.product_id,
+        product_name: row.product_name,
+        category: (await categoryService.findById(row.category_id)),
+        quantity: row.quantity
+    };
+};
+
 const findAll = async (offset, limit) => {
     try {
-        const sql = 'SELECT * FROM ?? LIMIT ?, ?';
-        const values = ['product', offset, limit];
+        const sql = 'SELECT ?? FROM ?? LIMIT ?, ?';
+        const column = ['product_id', 'product_name', 'category_id', 'quantity'];
+        const values = [column, 'product', offset, limit];
         const [rows] = await conn.query(sql, values);
-        return rows;
+        const products = await Promise.all(rows.map(row => mapProduct(row)));
+        return products;
     } catch (err) {
         console.error(err);
         return null;
@@ -46,10 +58,11 @@ const findAll = async (offset, limit) => {
 
 const findById = async id => {
     try {
-        const sql = 'SELECT * FROM ?? WHERE ?? = ?';
-        const values = ['product', 'product_id', id];
+        const sql = 'SELECT ?? FROM ?? WHERE ?? = ?';
+        const column = ['product_id', 'product_name', 'category_id', 'quantity'];
+        const values = [column, 'product', 'product_id', id];
         const [rows] = await conn.query(sql, values);
-        return rows[0];
+        return await mapProduct(rows[0]);
     } catch (err) {
         console.error(err);
         return null;
@@ -60,11 +73,13 @@ const findById = async id => {
 
 const findByCategoryId = async (categoryId, offset, limit) => {
     try {
-        const sql = 'SELECT * FROM ?? WHERE ?? = ? LIMIT ?, ?';
-        const values = ['product', 'category_id', categoryId, offset, limit];
+        const sql = 'SELECT ?? FROM ?? WHERE ?? = ? LIMIT ?, ?';
+        const column = ['product_id', 'product_name', 'category_id', 'quantity'];
+        const values = [column, 'product', 'category_id', categoryId, offset, limit];
         console.log(conn.format(sql, values));
         const [rows] = await conn.query(sql, values);
-        return rows;
+        const products = await Promise.all(rows.map(row => mapProduct(row)));
+        return products;
     } catch (err) {
         return null;
     } finally {

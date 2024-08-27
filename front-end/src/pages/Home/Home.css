@@ -1,0 +1,43 @@
+.product-list-section {
+    margin-top: -100px;
+    margin-bottom: 50px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: space-around;
+    margin: 0 100px;
+}
+
+.list-title {
+    text-align: center;
+    font-size: 35px;
+}
+
+.page-action {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+    > .btn {
+        margin: 0 10px;
+        padding: 10px 0;
+        width: 120px;
+        transition: all 0.2s;
+        border-radius: 10px;
+        background-color: #FAC4E4;
+        border: 2px solid #460B2E;
+
+        font-size: 18px;
+        color: #460B2E;
+        font-weight: 500;
+        
+        &:hover {
+            background-color: #460B2E;
+            border: 2px solid #FAC4E4;
+            color: #FAC4E4;
+        }
+    }
+}
