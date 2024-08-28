@@ -3,10 +3,10 @@ import "./Banner.css";
 
 const Banner = () => {
     const [bannerHeight, setBannerHeight] = useState<number>(
-        window.outerHeight
+        window.innerHeight
     );
 
-    window.onresize = () => setBannerHeight(window.outerHeight);
+    window.onresize = () => setBannerHeight(window.innerHeight);
 
     return (
         <div

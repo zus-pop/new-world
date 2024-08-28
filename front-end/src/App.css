@@ -1,0 +1,17 @@
+input,
+textarea,
+button {
+    font-family: 'IBM Plex Mono', monospace, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}

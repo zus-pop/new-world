@@ -1,0 +1,41 @@
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-right: 2px solid #25439D;
+    width: 222px;
+}
+
+.sidebar-nav {
+    overflow: auto;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar-title {
+    font-size: 24px;
+    border-bottom: 2px solid #25439D;
+}
+
+.nav-label {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 10px 0 0;
+}
+
+.nav-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    color: white;
+    transition: all 0.2s;
+
+    &.active {
+        color: #b89efe;
+    }
+}

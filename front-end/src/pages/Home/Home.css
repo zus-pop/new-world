@@ -27,17 +27,17 @@
         width: 120px;
         transition: all 0.2s;
         border-radius: 10px;
-        background-color: #FAC4E4;
-        border: 2px solid #460B2E;
+        background-color: var(--thin-pink);
+        border: 2px solid var(--bold-pink);
 
         font-size: 18px;
-        color: #460B2E;
+        color: var(--bold-pink);
         font-weight: 500;
         
         &:hover {
-            background-color: #460B2E;
-            border: 2px solid #FAC4E4;
-            color: #FAC4E4;
+            background-color: var(--bold-pink);
+            border: 2px solid var(--thin-pink);
+            color: var(--thin-pink);
         }
     }
 }

@@ -2,30 +2,21 @@
   font-family: 'IBM Plex Mono', monospace, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
+
   color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
   background-image: linear-gradient(90deg, #00081F, #00071B);
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   box-sizing: border-box;
-}
 
-input,
-textarea,
-button {
-  font-family: 'IBM Plex Mono', monospace, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --thin-pink: #FAC4E4;
+  --bold-pink: #460B2E;
+  --blue: #6B90FF;
+  --black: black;
+  --red: #D94A4C;
 }
-
-body {
-  margin: 0;
-}
-
-button {
-  cursor: pointer;
-}
-

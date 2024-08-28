@@ -4,7 +4,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    top: -89px;
     height: var(--height);
     display: flex;
     justify-content: center;
