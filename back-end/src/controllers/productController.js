@@ -97,7 +97,7 @@ const update = async (req, res) => {
     if (!updatedProduct) {
         return res.status(400).json({ message: 'Product not updated' });
     }
-    res.status(200).json(updatedProduct);
+    res.status(204).json(updatedProduct);
 };
 
 const remove = async (req, res) => {
@@ -106,7 +106,7 @@ const remove = async (req, res) => {
     if (!deletedProduct) {
         return res.status(400).json({ message: 'Product not deleted' });
     }
-    res.status(200).json(deletedProduct);
+    res.status(204).json(deletedProduct);
 };
 
 export default {

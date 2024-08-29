@@ -1,0 +1,67 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    input,
+    select {
+        background-color: transparent;
+        border: 2px solid var(--blue);
+        border-radius: 10px;
+        margin: 10px 0;
+        width: 100%;
+        padding: 10px;
+        color: var(--blue);
+        font-size: 15px;
+    }
+
+    select option {
+        background-color: rgba(0, 0, 0, 0.826);
+    }
+
+    input::placeholder,
+    label,
+    h4 {
+        color: var(--blue-text);
+    }
+
+    .form-title {
+        text-align: center;
+    }
+
+    .message {
+        margin: 5px 0;
+    }
+}
+
+.form {
+    border: 2px solid var(--blue);
+    padding: 25px 50px;
+    border-radius: 10px;
+    width: 500px;
+    font-size: 1.5em;
+}
+
+.create-btn {
+    display: flex;
+    justify-content: center;
+
+    >button {
+        background-color: var(--blue);
+        color: var(--black);
+        border: 2px solid var(--black);
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: 450;
+        padding: 10px 20px;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: transparent;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+        }
+    }
+}

@@ -34,7 +34,7 @@
         color: var(--bold-pink);
         font-weight: 500;
         
-        &:hover {
+        &:not(:disabled):hover {
             background-color: var(--bold-pink);
             border: 2px solid var(--thin-pink);
             color: var(--thin-pink);

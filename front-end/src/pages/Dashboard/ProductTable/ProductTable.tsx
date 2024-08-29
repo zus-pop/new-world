@@ -5,14 +5,24 @@ import {
     faFilter,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { BaseUrlContext } from "../../../App";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ProductResponse } from "../../../types/ProductResponse";
+import { useNavigate } from "react-router-dom";
+import { removeProduct } from "../../../api/queries";
 
 const ProductTable = () => {
     const baseUrl = useContext(BaseUrlContext);
+    const queryClient = useQueryClient();
     const [url, setUrl] = useState(`${baseUrl}/products?offset=0&limit=5`);
+    const {
+        mutate: remove,
+        isPending,
+        isError,
+        isSuccess,
+    } = removeProduct(url, queryClient);
+    const navigate = useNavigate();
 
     const { data, isLoading } = useQuery({
         queryKey: ["products", url],
@@ -22,6 +32,21 @@ const ProductTable = () => {
         },
     });
 
+    const handleRemove = (e: MouseEvent<HTMLButtonElement>) => {
+        if (window.confirm("Are you sure?")) {
+            const id: number = +e.currentTarget.value;
+            remove(id);
+        }
+    };
+
+    const goPrevious = (_: MouseEvent<HTMLButtonElement>) => {
+        setUrl(data?.previous as string);
+    };
+
+    const goNext = (_: MouseEvent<HTMLButtonElement>) => {
+        setUrl(data?.next as string);
+    };
+
     return (
         <div className="container">
             <div className="manage">
@@ -29,7 +54,12 @@ const ProductTable = () => {
                     <h2>Manage Products</h2>
                 </div>
                 <div className="manage-activities">
-                    <button className="add-btn btn">New Product +</button>
+                    <button
+                        onClick={() => navigate("/dashboard/product/create")}
+                        className="add-btn btn"
+                    >
+                        New Product +
+                    </button>
                     <div className="search-bar">
                         <input placeholder="Search product" type="search" />
                         <FontAwesomeIcon
@@ -72,12 +102,17 @@ const ProductTable = () => {
                                     </div>
                                     <div className="cell">
                                         <button
-                                            value={product.product_id}
+                                            onClick={() =>
+                                                navigate(
+                                                    `/dashboard/product/edit/${product.product_id}`
+                                                )
+                                            }
                                             className="btn update-btn"
                                         >
-                                            Update
+                                            Edit
                                         </button>
                                         <button
+                                            onClick={handleRemove}
                                             value={product.product_id}
                                             className="btn remove-btn"
                                         >
@@ -89,6 +124,26 @@ const ProductTable = () => {
                         </div>
                     </div>
                 )}
+                {isError && <div>Error!</div>}
+                {isPending && <div>Pending...</div>}
+                {isSuccess && <div>Success</div>}
+
+                <div className="page-active">
+                    <button
+                        onClick={goPrevious}
+                        disabled={!data?.previous}
+                        className="page-btn"
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={goNext}
+                        disabled={!data?.next}
+                        className="page-btn"
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
     );

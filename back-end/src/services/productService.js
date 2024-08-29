@@ -42,9 +42,9 @@ const mapProduct = async row => {
 
 const findAll = async (offset, limit) => {
     try {
-        const sql = 'SELECT ?? FROM ?? LIMIT ?, ?';
+        const sql = 'SELECT ?? FROM ?? ORDER BY ?? DESC LIMIT ?, ?';
         const column = ['product_id', 'product_name', 'category_id', 'quantity'];
-        const values = [column, 'product', offset, limit];
+        const values = [column, 'product', 'product_id', offset, limit];
         const [rows] = await conn.query(sql, values);
         const products = await Promise.all(rows.map(row => mapProduct(row)));
         return products;

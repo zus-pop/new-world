@@ -63,7 +63,7 @@ const CategoryTable = () => {
                                     </div>
                                     <div className="cell">
                                         <button className="btn update-btn">
-                                            Update
+                                            Edit
                                         </button>
                                         <button className="btn remove-btn">
                                             Remove

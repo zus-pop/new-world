@@ -113,3 +113,27 @@
         flex: 1.5 1;
     }
 }
+
+.page-active {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    > button {
+        font-size: 20px;
+        width: 150px;
+        border-radius: 10px;
+        background-color: var(--blue);
+        border: 2px solid var(--black);
+        color: var(--black);
+        font-weight: 500;
+        padding: 10px;
+        transition: all 0.2s;
+
+        &:not(:disabled):hover {
+            background-color: transparent;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+        }
+    }
+}
