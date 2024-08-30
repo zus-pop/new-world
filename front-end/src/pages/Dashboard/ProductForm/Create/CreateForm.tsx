@@ -20,7 +20,6 @@ const CreateForm = () => {
         };
         create(product);
     };
-
     useEffect(() => {
         if (isSuccess) {
             navigate("/dashboard/product");

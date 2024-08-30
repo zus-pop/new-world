@@ -5,32 +5,19 @@ import {
     faFilter,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { MouseEvent, useContext, useState } from "react";
-import { BaseUrlContext } from "../../../App";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ProductResponse } from "../../../types/ProductResponse";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { removeProduct } from "../../../api/queries";
+import { getAllProduct, removeProduct } from "../../../api/queries";
 
 const ProductTable = () => {
-    const baseUrl = useContext(BaseUrlContext);
-    const queryClient = useQueryClient();
-    const [url, setUrl] = useState(`${baseUrl}/products?offset=0&limit=5`);
+    const navigate = useNavigate();
+    const { data, isLoading, url, setUrl } = getAllProduct(0, 5);
     const {
         mutate: remove,
         isPending,
         isError,
         isSuccess,
-    } = removeProduct(url, queryClient);
-    const navigate = useNavigate();
-
-    const { data, isLoading } = useQuery({
-        queryKey: ["products", url],
-        queryFn: async (): Promise<ProductResponse> => {
-            const response = await fetch(url);
-            return await response.json();
-        },
-    });
+    } = removeProduct(url);
 
     const handleRemove = (e: MouseEvent<HTMLButtonElement>) => {
         if (window.confirm("Are you sure?")) {

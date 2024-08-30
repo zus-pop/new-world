@@ -1,25 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
 import Banner from "../../components/Banner/Banner";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 import "./Home.css";
-import { MouseEvent, useState } from "react";
-import { ProductResponse } from "../../types/ProductResponse";
-
-const baseUrl = "http://localhost:3000/api/v1";
+import { MouseEvent } from "react";
+import { getAllProduct } from "../../api/queries";
 
 const Home = () => {
-    const [url, setUrl] = useState<string>(
-        `${baseUrl}/products?offset=0&limit=10`
-    );
-
-    const { data: products, isLoading } = useQuery({
-        queryKey: ["products", url],
-        queryFn: async (): Promise<ProductResponse> => {
-            const response = await fetch(url);
-            return await response.json();
-        },
-    });
+    const { data: products, isLoading, setUrl } = getAllProduct(0, 10);
 
     const productCards = products?.products.map((product) => (
         <ProductCard key={product.product_id} product={product} />
