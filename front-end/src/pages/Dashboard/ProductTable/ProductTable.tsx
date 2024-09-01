@@ -11,7 +11,13 @@ import { getAllProduct, removeProduct } from "../../../api/queries";
 
 const ProductTable = () => {
     const navigate = useNavigate();
-    const { data, isLoading, url, setUrl } = getAllProduct(0, 5);
+    const { data, isLoading, url, page, setPage } = getAllProduct(5);
+    let pages: number[] = [];
+
+    if (!isLoading) {
+        pages = [...Array(Math.ceil(data?.count! / 10)).keys()];
+    }
+
     const {
         mutate: remove,
         isPending,
@@ -27,11 +33,11 @@ const ProductTable = () => {
     };
 
     const goPrevious = (_: MouseEvent<HTMLButtonElement>) => {
-        setUrl(data?.previous as string);
+        setPage((prev) => prev - 1);
     };
 
     const goNext = (_: MouseEvent<HTMLButtonElement>) => {
-        setUrl(data?.next as string);
+        setPage((prev) => prev + 1);
     };
 
     return (
@@ -118,14 +124,27 @@ const ProductTable = () => {
                 <div className="page-active">
                     <button
                         onClick={goPrevious}
-                        disabled={!data?.previous}
+                        disabled={page === pages[0] + 1}
                         className="page-btn"
                     >
                         Previous
                     </button>
+                    {pages.map((index) => (
+                        <div
+                            onClick={(e) => {
+                                setPage(+e.currentTarget.innerText);
+                            }}
+                            className={`page ${
+                                page === index + 1 ? "active" : ""
+                            }`}
+                            key={index}
+                        >
+                            {index + 1}
+                        </div>
+                    ))}
                     <button
                         onClick={goNext}
-                        disabled={!data?.next}
+                        disabled={page === pages[pages.length - 1] + 1}
                         className="page-btn"
                     >
                         Next

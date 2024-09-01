@@ -2,9 +2,14 @@
     display: flex;
     justify-content: center;
     position: fixed;
-    top: 10px;
+    top: -80px;
     width: 100%;
     z-index: 1;
+    transition: all 0.5s;
+}
+
+.header-container.mount {
+    top: 10px;
 }
 
 .header-content {
@@ -23,7 +28,7 @@
     align-items: center;
 }
 
-.search-bar > input {
+.search-bar>input {
     width: 25em;
     background-color: #DED2FF;
     color: #110B22;
@@ -49,8 +54,8 @@
 .nav-bar {
     display: flex;
     gap: 20px;
-    
-    > a {
+
+    >a {
         font-size: 1.2em;
         text-decoration: none;
         font-weight: 600;
@@ -58,7 +63,7 @@
         transition: all 0.2s;
     }
 
-    > a.active {
+    >a.active {
         color: #b89efe;
     }
 }

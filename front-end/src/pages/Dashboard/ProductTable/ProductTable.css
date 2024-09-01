@@ -20,7 +20,7 @@
 .manage-activities {
     display: flex;
     justify-content: space-around;
-    
+
     .btn {
         background-color: var(--blue);
         border: 2px solid var(--black);
@@ -71,6 +71,26 @@
     }
 }
 
+.page {
+    font-size: 1.5em;
+    padding: 10px;
+    border: 1px solid var(--blue);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--blue);
+        color: var(--black);
+        border: 1px solid var(--black);
+    }
+
+    &.active {
+        background-color: var(--blue);
+        color: var(--black);
+        border: 1px solid var(--black);
+    }
+}
 
 .update-btn {
     border: 2px solid var(--blue);
@@ -119,7 +139,7 @@
     justify-content: center;
     gap: 10px;
 
-    > button {
+    >button {
         font-size: 20px;
         width: 150px;
         border-radius: 10px;

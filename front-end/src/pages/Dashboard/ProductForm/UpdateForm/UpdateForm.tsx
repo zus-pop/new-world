@@ -20,7 +20,10 @@ const UpdateForm = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const product: ProductRequestBody = {
-            product_name: formData.get("product_name")! as string,
+            product_name: formData
+                .get("product_name")
+                ?.toString()
+                .trim()! as string,
             category_id: +formData.get("category_id")!,
             quantity: +formData.get("quantity")!,
         };

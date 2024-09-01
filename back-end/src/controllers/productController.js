@@ -1,20 +1,17 @@
 import productService from '../services/productService.js';
 
 const findAll = async (req, res) => {
-    const offset = req.offset;
+    const page = req.page;
     const limit = req.limit;
+    const offset = (page - 1) * limit;
     const products = await productService.findAll(offset, limit);
     const count = await productService.getProductCount();
     if (!products) {
         return res.status(404).json({ message: 'Products not found' });
     }
-    const next = getNextLink(req, offset, limit, count);
-    const previous = getPreviousLink(req, offset, limit);
     res.status(200).json({
         count,
         products,
-        next,
-        previous,
     });
 };
 
@@ -23,6 +20,7 @@ const getNextLink = (req, offset, limit, count) => {
         return null;
 
     const extraPath = req.path !== '/' ? req.path : '';
+    // console.log(req.query);
     return `${req.protocol}://${req.get('host')}${req.baseUrl}${extraPath}?offset=${offset + limit}&limit=${limit}`;
 };
 
@@ -36,8 +34,8 @@ const getPreviousLink = (req, offset, limit) => {
 
 
 const paginationMiddleware = (req, _, next) => {
-    const { offset, limit } = req.query;
-    req.offset = +offset || 0;
+    const { page, limit } = req.query;
+    req.page = +page || 0;
     req.limit = +limit || 10;
     next();
 };
@@ -49,6 +47,25 @@ const findById = async (req, res) => {
         return res.status(404).json({ message: 'Product not found' });
     }
     res.status(200).json(product);
+};
+
+const findByName = async (req, res) => {
+    const offset = req.offset;
+    const limit = req.limit;
+    const { name } = req.query;
+    const products = await productService.findByName(name, offset, limit);
+    if (!products) {
+        return res.status(404).json({ message: 'Products not found' });
+    }
+    const count = await productService.getCountByName(name);
+    const next = getNextLink(req, offset, limit, count);
+    const previous = getPreviousLink(req, offset, limit);
+    res.status(200).json({
+        count,
+        products,
+        next,
+        previous
+    });
 };
 
 const findByCategoryId = async (req, res) => {
@@ -112,6 +129,7 @@ const remove = async (req, res) => {
 export default {
     findAll,
     findById,
+    findByName,
     findByCategoryId,
     persist,
     checkBodyMiddleware,

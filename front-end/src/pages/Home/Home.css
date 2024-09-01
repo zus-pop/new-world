@@ -1,5 +1,4 @@
 .product-list-section {
-    margin-top: -100px;
     margin-bottom: 50px;
 }
 
@@ -39,5 +38,21 @@
             border: 2px solid var(--thin-pink);
             color: var(--thin-pink);
         }
+    }
+
+    .page {
+        padding: 10px;
+        border: 1px solid var(--bold-pink);
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover {
+            background-color: var(--thin-pink);
+            color: var(--bold-pink);
+        }
+    }
+    
+    .page.active {
+        background-color: var(--thin-pink);
+        color: var(--bold-pink);
     }
 }

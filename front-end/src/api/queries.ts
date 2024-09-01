@@ -72,6 +72,7 @@ export const createProduct = () => {
 
 export const updateProduct = () => {
     const baseUrl = useContext(BaseUrlContext);
+    const queryClient = useQueryClient();
     const { mutate, isPending, isError, isSuccess } = useMutation({
         mutationFn: ({ id, product }: ProductPutRequest) => {
             return fetch(`${baseUrl}/products/${id}`, {
@@ -80,6 +81,13 @@ export const updateProduct = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(product),
+            });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                predicate: (query) =>
+                    query.queryKey[0] === "product" &&
+                    (query.queryKey[1] as number) > 0,
             });
         },
     });
@@ -119,12 +127,11 @@ export const removeProduct = (url: string) => {
     };
 };
 
-export const getAllProduct = (offset: number, limit: number) => {
+export const getAllProduct = (limit: number) => {
     const queryClient = useQueryClient();
     const baseUrl = useContext(BaseUrlContext);
-    const [url, setUrl] = useState<string>(
-        `${baseUrl}/products?offset=${offset}&limit=${limit}`
-    );
+    const [page, setPage] = useState<number>(1);
+    const url = `${baseUrl}/products?page=${page}&limit=${limit}`;
 
     const { data, isLoading } = useQuery({
         queryKey: ["products", url],
@@ -144,7 +151,8 @@ export const getAllProduct = (offset: number, limit: number) => {
         data,
         isLoading,
         url,
-        setUrl,
+        page,
+        setPage,
         invalidateQueries,
     };
 };

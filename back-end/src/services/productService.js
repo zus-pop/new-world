@@ -31,6 +31,20 @@ const getProductCountByCategoryId = async (category_id) => {
     }
 };
 
+const getCountByName = async name => {
+    try {
+        const sql = 'SELECT COUNT(*) AS Count FROM ?? WHERE ?? LIKE ?';
+        const values = ['product', 'product_name', `%${name}%`];
+        const [result] = await conn.query(sql, values);
+        return result[0].Count;
+    } catch (err) {
+        console.error(err);
+        return null;
+    } finally {
+        conn.release();
+    }
+};
+
 const mapProduct = async row => {
     return {
         product_id: row.product_id,
@@ -63,6 +77,23 @@ const findById = async id => {
         const values = [column, 'product', 'product_id', id];
         const [rows] = await conn.query(sql, values);
         return await mapProduct(rows[0]);
+    } catch (err) {
+        console.error(err);
+        return null;
+    } finally {
+        conn.release();
+    }
+};
+
+const findByName = async (name, offset, limit) => {
+    try {
+        const sql = 'SELECT ?? FROM ?? WHERE ?? LIKE ? LIMIT ?, ?';
+        const column = ['product_id', 'product_name', 'category_id', 'quantity'];
+        const values = [column, 'product', 'product_name', `%${name}%`, offset, limit];
+        console.log(conn.format(sql, values));
+        const [rows] = await conn.query(sql, values);
+        console.log(rows);
+        return await Promise.all(rows.map(row => mapProduct(row)));
     } catch (err) {
         console.error(err);
         return null;
@@ -136,10 +167,12 @@ const remove = async id => {
 export default {
     findAll,
     findById,
+    findByName,
     findByCategoryId,
     persist,
     update,
     remove,
     getProductCount,
-    getProductCountByCategoryId
+    getProductCountByCategoryId,
+    getCountByName
 };

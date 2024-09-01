@@ -9,6 +9,9 @@ router.get('/', productController.paginationMiddleware, productController.findAl
 // POST: /api/v1/products
 router.post('/', productController.checkBodyMiddleware, productController.persist);
 
+// GET: /api/v1/products/search?name=
+router.get('/search', productController.paginationMiddleware, productController.findByName);
+
 // GET: /api/v1/products/:id
 router.get('/:id', productController.findById);
 
